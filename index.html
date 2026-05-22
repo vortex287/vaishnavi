@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>BMI Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #8fe6c6, #9face6);
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 20px;
+        }
+
+        section {
+            background: white;
+            width: 60%;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td, th {
+            padding: 10px;
+        }
+
+        footer {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        #result {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 align="center">BMI Calculator</h1>
+
+    <hr>
+
+    <center>
+        <img src="https://obesitybariatric.com/wp-content/uploads/2021/02/BMI-Calculator-Obesity-Bariatric.jpg"
+        width="500" alt="BMI IMG">
+    </center>
+
+    <hr>
+
+    <section>
+
+        <h2>Enter Your Details</h2>
+
+        <form onsubmit="return calculateBMI()">
+
+            <label>Enter Your Name:</label>
+
+            <!-- Name field -->
+            <input type="text"
+                   id="name"
+                   onkeypress="return onlyAlphabets(event)">
+            <br><br>
+
+            <label>Enter Height (in meters):</label>
+            <input type="number" step="0.01" id="height">
+            <br><br>
+
+            <label>Enter Weight (in kg):</label>
+            <input type="number" id="weight">
+            <br><br>
+
+            <button type="submit">Calculate BMI</button>
+            <button type="reset">Reset</button>
+
+        </form>
+
+        <p id="result"></p>
+
+    </section>
+
+    <hr>
+
+    <section>
+
+        <h2>BMI Categories</h2>
+
+        <table border="1">
+
+            <tr>
+                <th>BMI Range</th>
+                <th>Category</th>
+            </tr>
+
+            <tr>
+                <td>Below 18.5</td>
+                <td>Underweight</td>
+            </tr>
+
+            <tr>
+                <td>18.5 – 24.9</td>
+                <td>Normal Weight</td>
+            </tr>
+
+            <tr>
+                <td>25 – 29.9</td>
+                <td>Overweight</td>
+            </tr>
+
+            <tr>
+                <td>30 and above</td>
+                <td>Obese</td>
+            </tr>
+
+        </table>
+
+    </section>
+
+    <hr>
+
+    <section>
+
+        <h2>BMI Formula</h2>
+
+        <p>
+            <b>BMI = Weight (kg) / Height² (m²)</b>
+        </p>
+
+        :contentReference[oaicite:0]{index=0}
+
+    </section>
+
+    <hr>
+
+    <footer align="center">
+        <p>BMI Calculator</p>
+    </footer>
+
+    <script>
+
+        // Function to allow only alphabets
+        function onlyAlphabets(event) {
+
+            var char = String.fromCharCode(event.which);
+
+            // If typed character is NOT alphabet
+            if (!(/[a-zA-Z ]/.test(char))) {
+
+                alert("Only alphabets are allowed in Name!");
+
+                return false;
+            }
+
+            return true;
+        }
+
+        // BMI Calculator Function
+        function calculateBMI() {
+
+            var name = document.getElementById("name").value;
+            var height = document.getElementById("height").value;
+            var weight = document.getElementById("weight").value;
+
+            // Empty field validation
+            if (name === "" || height === "" || weight === "") {
+
+                alert("Please fill all fields!");
+
+                return false;
+            }
+
+            // Name validation
+            if (!/^[A-Za-z ]+$/.test(name)) {
+
+                alert("Name should contain only alphabets!");
+
+                return false;
+            }
+
+            // Height and weight validation
+            if (height <= 0 || weight <= 0) {
+
+                alert("Height and Weight must be greater than 0!");
+
+                return false;
+            }
+
+            // BMI Formula
+            var bmi = weight / (height * height);
+
+            bmi = bmi.toFixed(2);
+
+            // Display Result
+            document.getElementById("result").innerHTML =
+                name + ", your BMI is: " + bmi;
+
+            // BMI Category
+            if (bmi < 18.5) {
+
+                alert("You are Underweight");
+
+            }
+            else if (bmi < 25) {
+
+                alert("You have Normal Weight");
+
+            }
+            else if (bmi < 30) {
+
+                alert("You are Overweight");
+
+            }
+            else {
+
+                alert("You are Obese");
+            }
+
+            return false;
+        }
+
+    </script>
+
+</body>
+
+</html>
